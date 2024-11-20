@@ -83,21 +83,202 @@ const user = {
 // console.log(student1.name);
 // student1.sayHello('giorig');
 
-class Student {
-  constructor(name, age) {
-    this.name = name;
-    this.age = age;
+// class Student {
+//   constructor(name, age) {
+//     this.name = name;
+//     this.age = age;
+//   }
+
+//   //   sayHello(greetingName) {
+//   //     console.log(`helo ${greetingName}`);
+//   //   }
+//   sayHello() {
+//     console.log(`helo ${this.name}`);
+//   }
+// }
+
+// const student1 = new Student('George', 19);
+
+// console.log(student1.name);
+// student1.sayHello();
+//!
+
+// class Student {
+//   #name = 'giorgi';
+
+//   sayHello() {
+//     console.log(`hello ${this.#name}`);
+//   }
+// }
+
+// const student1 = new Student();
+
+// console.log(student1.name);
+
+//! interperens
+
+// class Animal {
+// constructor(name, age) {
+//   this.name = name;
+//   _this.age = age;
+// }
+
+// alive() {
+//   console.log('alive');
+// }
+// }
+
+// class Dog extends Animal {
+//   constructor(name, age, color) {
+//     super(name, age);
+//     this.color = color;
+//   }
+
+//   bark() {
+//     console.log('barkink');
+//   }
+// }
+
+// const dog1 = new Dog('jeka', 5, 'red');
+
+// class Fish {
+//   constructor(name, age) {
+//     this.name = name;
+//     this.age = age;
+//   }
+
+//   bark() {
+//     console.log('swimming');
+//   }
+// }
+
+// const fish1 = new Dog('nemo', 2);
+
+// class Chicken {
+//   constructor(name) {
+//     this.name = name;
+//   }
+
+//   bark() {
+//     console.log('flying');
+//   }
+
+//   alive() {
+//     console.log('alive');
+//   }
+// }
+
+// const chicken1 = new Dog('nemo', 2);
+
+//!
+
+class Calculator {
+  #number = 0;
+  constructor(number) {
+    this.number = number;
   }
 
-  //   sayHello(greetingName) {
-  //     console.log(`helo ${greetingName}`);
-  //   }
-  sayHello() {
-    console.log(`helo ${this.name}`);
+  add(num) {
+    this.#number += num;
+    return this;
+  }
+
+  sub(num) {
+    this.#number -= num;
+    return this;
+  }
+
+  multi(num) {
+    this.#number *= num;
+    return this;
+  }
+
+  divede(num) {
+    this.#number /= num;
+    return this;
+  }
+
+  getResult() {
+    console.log(this.#number);
   }
 }
 
-const student1 = new Student('George', 19);
+const calc1 = new Calculator(0);
 
-console.log(student1.name);
-student1.sayHello();
+calc1.add(10).multi(2).sub(12).getResult();
+//!
+//
+// class BankAcount {
+//   #balance = 0;
+//   constructor(balance) {
+//     this.balance = balance;
+//   }
+
+//   Deposite() {
+//     return this.balance;
+//   }
+
+//   withDraw(draw) {
+//     this.balance + draw;
+//     return balance;
+//   }
+// }
+
+// const user1 = new BankAcount(0);
+
+// console.log(user1.Deposite());
+// console.log(user1.withDraw(5));
+
+class BankAcount {
+  #balance = 0;
+  #history = [];
+
+  deposite(amount) {
+    this.#balance += amount;
+    this.addHistory('deposite', this.#balance);
+  }
+
+  withDraw(amount) {
+    if (amount > this.#balance) {
+      console.log('this operatin cant be handled');
+      return;
+    }
+    this.#balance -= amount;
+    this.addHistory('withdraw', this.#balance);
+  }
+
+  transferMoneyToSomeone(amount) {
+    if (amount > this.#balance) {
+      console.log('this operatin cant be handled');
+      return;
+    }
+    this.#balance -= amount;
+    this.addHistory('transfer', this.#balance, personId);
+  }
+
+  addHistory(type, amount, personId) {
+    const history = {
+      type,
+      amount,
+      data: new Date().toISOString(),
+    };
+    if (personId) {
+      history.personId = personId;
+    }
+    this.#history.push(history);
+  }
+
+  getBalance() {
+    console.log(this.#balance);
+  }
+
+  getTransactionHistory() {
+    console.log(this.#history);
+  }
+}
+
+const giorgisBank = new BankAcount();
+giorgisBank.deposite(1000);
+giorgisBank.transferMoneyToSomeone(300, 'sada1214');
+giorgisBank.getBalance();
+giorgisBank.getTransactionHistory();
